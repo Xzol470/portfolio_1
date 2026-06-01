@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Портфолио | Козьмин Владислав | Амурский педагогический колледж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e15;
+            font-family: 'Inter', sans-serif;
+            color: #e8edf5;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Шапка */
+        .header {
+            background: #0f1420;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #252e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #8aadf0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-left p {
+            color: #8e9fc3;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .badge {
+            background: #1a2335;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #8aadf0;
+        }
+
+        /* Вкладки */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #252e42;
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: #8e9fc3;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            background: #1a2335;
+        }
+
+        .tab-btn.active {
+            background: #1e2a4a;
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Карточки */
+        .card {
+            background: #0f1420;
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid #252e42;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #c2d6ff;
+            border-left: 3px solid #4a7bbf;
+            padding-left: 0.8rem;
+        }
+
+        .section-title i {
+            margin-right: 0.6rem;
+            color: #4a7bbf;
+        }
+
+        /* Профиль */
+        .profile-row {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            background: #1a2335;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #4a7bbf;
+            border: 2px solid #2a3a60;
+        }
+
+        .info-grid {
+            flex: 1;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .info-label {
+            width: 130px;
+            font-weight: 600;
+            color: #8aadf0;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #cfdff5;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: #1a2335;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #b8ceff;
+        }
+
+        /* Панель редактора - упрощённая */
+        .edit-panel {
+            background: #0d1220;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2a3a60;
+            display: none;
+        }
+
+        .edit-panel.active {
+            display: block;
+        }
+
+        .edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .edit-toggle {
+            background: #1a2335;
+            border: 1px solid #2a3a60;
+            color: #b8ceff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .edit-toggle:hover {
+            background: #25304a;
+            color: white;
+        }
+
+        .upload-area {
+            background: #0b101a;
+            border: 2px dashed #2a3a60;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area:hover {
+            border-color: #4a7bbf;
+            background: #111725;
+        }
+
+        .upload-area i {
+            font-size: 2.5rem;
+            color: #4a7bbf;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-area p {
+            color: #8e9fc3;
+            font-size: 0.9rem;
+        }
+
+        .upload-area small {
+            font-size: 0.7rem;
+            color: #6c7fa0;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .quick-edit-info {
+            font-size: 0.75rem;
+            color: #8aa5cd;
+            margin-top: 0.8rem;
+            text-align: center;
+        }
+
+        /* Сетка грамот */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .cert-card {
+            background: #0b101a;
+            border: 1px solid #252e42;
+            border-radius: 16px;
+            padding: 1rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .cert-card:hover {
+            border-color: #3a5a8a;
+        }
+
+        .cert-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background: #f5f7fc;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 0.7rem;
+        }
+
+        .cert-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            color: #e8edf5;
+            word-break: break-word;
+        }
+
+        .cert-date {
+            font-size: 0.7rem;
+            color: #8aa5cd;
+        }
+
+        .delete-cert {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: #ffaaaa;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .cert-card:hover .delete-cert {
+            display: block;
+        }
+
+        .edit-cert {
+            position: absolute;
+            top: 0.6rem;
+            left: 0.6rem;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: #aaffaa;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .cert-card:hover .edit-cert {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #8e9fc3;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+        }
+
+        /* Модалка для редактирования */
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .edit-modal-content {
+            background: #0f1420;
+            border-radius: 20px;
+            padding: 1.8rem;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid #2a3a60;
+        }
+
+        .edit-modal-content h3 {
+            margin-bottom: 1rem;
+            color: #c2d6ff;
+        }
+
+        .edit-modal-content input {
+            width: 100%;
+            padding: 0.7rem;
+            background: #0b101a;
+            border: 1px solid #2a3a60;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .edit-modal-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: flex-end;
+        }
+
+        .edit-modal-buttons button {
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .save-edit-btn {
+            background: #2a4a7a;
+            border: none;
+            color: white;
+        }
+
+        .cancel-edit-btn {
+            background: #2a2a3a;
+            border: none;
+            color: #cccccc;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #252e42;
+            font-size: 0.7rem;
+            color: #6c7fa0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Шапка -->
+    <div class="header">
+        <div class="header-left">
+            <h1>Владислав Козьмин</h1>
+            <p><i class="fas fa-graduation-cap"></i> Студент • Информационные системы и программирование</p>
+            <p><i class="fas fa-map-marker-alt"></i> Амурский педагогический колледж, Благовещенск</p>
+        </div>
+        <div class="header-right">
+            <div class="badge"><i class="fas fa-laptop-code"></i> IT-разработка</div>
+            <button class="edit-toggle" id="editToggleBtn" style="margin-top: 0.8rem;"><i class="fas fa-plus-circle"></i> Добавить грамоту</button>
+        </div>
+    </div>
+
+    <!-- Панель добавления грамот (упрощённая) -->
+    <div class="edit-panel" id="editPanel">
+        <div class="edit-header">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Добавить грамоту или сертификат</h3>
+        </div>
+        <div class="upload-area" id="uploadArea">
+            <i class="fas fa-camera"></i>
+            <p>Нажмите или перетащите файл сюда</p>
+            <small>Поддерживаются JPG, PNG, GIF, WEBP</small>
+        </div>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="quick-edit-info">
+            <i class="fas fa-info-circle"></i> Название и дату можно будет отредактировать после добавления (кнопка с зелёным карандашиком)
+        </div>
+    </div>
+
+    <!-- Вкладки -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="about"><i class="fas fa-user"></i> О себе</button>
+        <button class="tab-btn" data-tab="achievements"><i class="fas fa-trophy"></i> Достижения</button>
+    </div>
+
+    <!-- Вкладка: О себе -->
+    <div id="about" class="tab-content active">
+        <div class="card">
+            <div class="profile-row">
+                <div class="avatar">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="info-grid">
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-graduation-cap"></i> Специальность</div>
+                        <div class="info-value">Информационные системы и программирование</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-calendar-alt"></i> Курс</div>
+                        <div class="info-value">3 курс, 2024–2027</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-chart-line"></i> Ключевые навыки</div>
+                        <div class="info-value">Python, разработка игр (Unity), нейросети, веб-технологии</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title"><i class="fas fa-briefcase"></i> Профессиональные компетенции</h3>
+            <div class="skills">
+                <span class="skill-tag">Python (Pandas, базовый ML)</span>
+                <span class="skill-tag">Разработка сайтов (Tilda)</span>
+                <span class="skill-tag">Unreal Engine 5</span>
+                <span class="skill-tag">Unity (C#)</span>
+                <span class="skill-tag">Работа с нейросетями</span>
+                <span class="skill-tag">VR/AR разработка</span>
+                <span class="skill-tag">Облачные технологии</span>
+                <span class="skill-tag">Интернет вещей (IoT)</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title"><i class="fas fa-flag-checkered"></i> Карьерные цели</h3>
+            <p>Планирую поступление в вуз по направлению «Прикладная информатика». Цель — стать fullstack-разработчиком или специалистом в области искусственного интеллекта. Регулярно участвую в IT-олимпиадах, хакатонах и всероссийских образовательных акциях.</p>
+        </div>
+    </div>
+
+    <!-- Вкладка: Достижения -->
+    <div id="achievements" class="tab-content">
+        <div class="card">
+            <h3 class="section-title"><i class="fas fa-award"></i> Мои грамоты и сертификаты</h3>
+            <div id="certsContainer" class="certs-grid">
+                <!-- Динамически загружаемые грамоты -->
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <i class="far fa-copyright"></i> 2026 • Портфолио студента Амурского педагогического колледжа
+    </div>
+</div>
+
+<!-- Модальное окно для увеличения фото -->
+<div id="imageModal" class="modal">
+    <img id="modalImg" src="" alt="Грамота">
+</div>
+
+<!-- Модальное окно для редактирования названия и даты -->
+<div id="editCertModal" class="edit-modal">
+    <div class="edit-modal-content">
+        <h3><i class="fas fa-edit"></i> Редактировать информацию</h3>
+        <input type="text" id="editTitle" placeholder="Название грамоты">
+        <input type="text" id="editDate" placeholder="Дата получения">
+        <div class="edit-modal-buttons">
+            <button class="cancel-edit-btn" id="cancelEditBtn">Отмена</button>
+            <button class="save-edit-btn" id="saveEditBtn">Сохранить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Хранилище в localStorage
+    const STORAGE_KEY = 'vlad_portfolio_certs_v2';
+    let certificates = [];
+    let currentEditIndex = null;
+
+    function loadFromStorage() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            certificates = JSON.parse(saved);
+        } else {
+            certificates = [];
+        }
+        renderCertificates();
+    }
+
+    function saveToStorage() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(certificates));
+    }
+
+    // Получить название из имени файла (без расширения)
+    function getNameFromFile(file) {
+        const name = file.name.replace(/\.[^/.]+$/, "");
+        return name.length > 0 ? name : "Грамота";
+    }
+
+    function addCertificate(imageData, fileName) {
+        const defaultTitle = fileName || "Грамота";
+        certificates.push({
+            title: defaultTitle,
+            date: "",
+            imageData: imageData
+        });
+        saveToStorage();
+        renderCertificates();
+        return true;
+    }
+
+    function updateCertificate(index, newTitle, newDate) {
+        if (index !== null && certificates[index]) {
+            if (newTitle !== undefined) certificates[index].title = newTitle;
+            if (newDate !== undefined) certificates[index].date = newDate;
+            saveToStorage();
+            renderCertificates();
+        }
+    }
+
+    function renderCertificates() {
+        const container = document.getElementById('certsContainer');
+        if (!container) return;
+
+        if (certificates.length === 0) {
+            container.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i> Нет добавленных грамот. Нажмите «Добавить грамоту» и загрузите фото ваших сертификатов.</div>`;
+            return;
+        }
+
+        container.innerHTML = certificates.map((cert, idx) => `
+            <div class="cert-card" data-idx="${idx}">
+                <img src="${cert.imageData}" alt="${escapeHtml(cert.title)}" onclick="openModalImage('${cert.imageData.replace(/'/g, "\\'")}')">
+                <div class="cert-title">${escapeHtml(cert.title)}</div>
+                <div class="cert-date"><i class="far fa-calendar-alt"></i> ${cert.date ? escapeHtml(cert.date) : 'дата не указана'}</div>
+                <button class="edit-cert" onclick="openEditModal(${idx})"><i class="fas fa-pen"></i> Править</button>
+                <button class="delete-cert" onclick="deleteCertificate(${idx})"><i class="fas fa-trash"></i> Удалить</button>
+            </div>
+        `).join('');
+    }
+
+    window.deleteCertificate = function(idx) {
+        if (confirm('Удалить эту грамоту из портфолио?')) {
+            certificates.splice(idx, 1);
+            saveToStorage();
+            renderCertificates();
+        }
+    };
+
+    window.openEditModal = function(idx) {
+        currentEditIndex = idx;
+        const cert = certificates[idx];
+        if (cert) {
+            document.getElementById('editTitle').value = cert.title || '';
+            document.getElementById('editDate').value = cert.date || '';
+            document.getElementById('editCertModal').style.display = 'flex';
+        }
+    };
+
+    window.openModalImage = function(src) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modal.style.display = 'flex';
+        modalImg.src = src;
+    };
+
+    document.getElementById('imageModal')?.addEventListener('click', function() {
+        this.style.display = 'none';
+    });
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Обработка загрузки файла
+    function handleFile(file) {
+        if (!file || !file.type.startsWith('image/')) {
+            alert('Пожалуйста, выберите файл изображения (JPG, PNG, GIF)');
+            return;
+        }
+
+        const fileName = getNameFromFile(file);
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            addCertificate(e.target.result, fileName);
+            alert(`Грамота "${fileName}" добавлена! Нажмите на зелёную кнопку "Править", чтобы уточнить название или добавить дату.`);
+            document.getElementById('fileInput').value = '';
+            // Закрываем панель редактирования
+            document.getElementById('editPanel').classList.remove('active');
+        };
+        reader.onerror = function() {
+            alert('Ошибка чтения файла');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Настройка drag & drop и клика
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+
+    uploadArea?.addEventListener('click', () => fileInput.click());
+    uploadArea?.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = '#4a7bbf';
+        uploadArea.style.background = '#111725';
+    });
+    uploadArea?.addEventListener('dragleave', () => {
+        uploadArea.style.borderColor = '#2a3a60';
+        uploadArea.style.background = '#0b101a';
+    });
+    uploadArea?.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = '#2a3a60';
+        uploadArea.style.background = '#0b101a';
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+    });
+    fileInput?.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    // Сохранение редактирования
+    document.getElementById('saveEditBtn')?.addEventListener('click', () => {
+        if (currentEditIndex !== null) {
+            const newTitle = document.getElementById('editTitle').value;
+            const newDate = document.getElementById('editDate').value;
+            updateCertificate(currentEditIndex, newTitle, newDate);
+            document.getElementById('editCertModal').style.display = 'none';
+            currentEditIndex = null;
+        }
+    });
+
+    document.getElementById('cancelEditBtn')?.addEventListener('click', () => {
+        document.getElementById('editCertModal').style.display = 'none';
+        currentEditIndex = null;
+    });
+
+    document.getElementById('editCertModal')?.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('editCertModal')) {
+            document.getElementById('editCertModal').style.display = 'none';
+            currentEditIndex = null;
+        }
+    });
+
+    // Переключение панели редактора
+    const editToggle = document.getElementById('editToggleBtn');
+    const editPanel = document.getElementById('editPanel');
+
+    editToggle?.addEventListener('click', function() {
+        editPanel.classList.toggle('active');
+    });
+
+    // Переключение вкладок
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+
+    loadFromStorage();
+</script>
+</body>
+</html>
